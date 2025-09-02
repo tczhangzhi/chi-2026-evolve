@@ -1,0 +1,363 @@
+%%
+%% This is file `sample-sigconf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `all,proceedings,bibtex,sigconf')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%% The first command in your LaTeX source must be the \documentclass
+%% command.
+%%
+%% For submission and review of your manuscript please change the
+%% command to \documentclass[manuscript, screen, review]{acmart}.
+%%
+%% When submitting camera ready or to TAPS, please change the command
+%% to \documentclass[sigconf]{acmart} or whichever template is required
+%% for your publication.
+%%
+%%
+\documentclass[manuscript,review,anonymous]{acmart}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{acmlicensed}
+\copyrightyear{2018}
+\acmYear{2018}
+\acmDOI{XXXXXXX.XXXXXXX}
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[Conference acronym 'XX]{Make sure to enter the correct
+  conference title from your rights confirmation email}{June 03--05,
+  2018}{Woodstock, NY}
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%%  June 03--05, 2018, Woodstock, NY}
+\acmISBN{978-1-4503-XXXX-X/2018/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Bootstrapping AI Research with AI: Imitate-and-Evolve for Long-Horizon Planning in Paper Generation}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+% \author{Ben Trovato}
+% \authornote{Both authors contributed equally to this research.}
+% \email{trovato@corporation.com}
+% \orcid{1234-5678-9012}
+% \author{G.K.M. Tobin}
+% \authornotemark[1]
+% \email{webmaster@marysville-ohio.com}
+% \affiliation{%
+%   \institution{Institute for Clarity in Documentation}
+%   \city{Dublin}
+%   \state{Ohio}
+%   \country{USA}
+% }
+
+% \author{Lars Th{\o}rv{\"a}ld}
+% \affiliation{%
+%   \institution{The Th{\o}rv{\"a}ld Group}
+%   \city{Hekla}
+%   \country{Iceland}}
+% \email{larst@affiliation.org}
+
+% \author{Valerie B\'eranger}
+% \affiliation{%
+%   \institution{Inria Paris-Rocquencourt}
+%   \city{Rocquencourt}
+%   \country{France}
+% }
+
+% \author{Aparna Patel}
+% \affiliation{%
+%  \institution{Rajiv Gandhi University}
+%  \city{Doimukh}
+%  \state{Arunachal Pradesh}
+%  \country{India}}
+
+% \author{Huifen Chan}
+% \affiliation{%
+%   \institution{Tsinghua University}
+%   \city{Haidian Qu}
+%   \state{Beijing Shi}
+%   \country{China}}
+
+% \author{Charles Palmer}
+% \affiliation{%
+%   \institution{Palmer Research Laboratories}
+%   \city{San Antonio}
+%   \state{Texas}
+%   \country{USA}}
+% \email{cpalmer@prl.com}
+
+% \author{John Smith}
+% \affiliation{%
+%   \institution{The Th{\o}rv{\"a}ld Group}
+%   \city{Hekla}
+%   \country{Iceland}}
+% \email{jsmith@affiliation.org}
+
+% \author{Julius P. Kumquat}
+% \affiliation{%
+%   \institution{The Kumquat Consortium}
+%   \city{New York}
+%   \country{USA}}
+% \email{jpkumquat@consortium.net}
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+% \renewcommand{\shortauthors}{Trovato et al.}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+TODO.
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10010147.10010178.10010199.10010202</concept_id>
+       <concept_desc>Computing methodologies~Multi-agent planning</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010178.10010179.10010182</concept_id>
+       <concept_desc>Computing methodologies~Natural language generation</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Multi-agent planning}
+\ccsdesc[500]{Computing methodologies~Natural language generation}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{Imitate-and-Evolve, Long-Horizon Planning, Research Paper Generation}
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+% \begin{teaserfigure}
+%   \includegraphics[width=\textwidth]{sampleteaser}
+%   \caption{Seattle Mariners at Spring Training, 2010.}
+%   \Description{Enjoying the baseball game from the third-base
+%   seats. Ichiro Suzuki preparing to bat.}
+%   \label{fig:teaser}
+% \end{teaserfigure}
+
+% \received{20 February 2007}
+% \received[revised]{12 March 2009}
+% \received[accepted]{5 June 2009}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+\section{Introduction}
+
+Artificial Intelligence (AI) increasingly influences the landscape of scientific research \cite{gil2014amplify,wang2023scientific}. Automating general scientific discovery has been a long-standing ambition of the research community, dating back to the 1970s–1980s \cite{langley1987scientific} with the advent of computer science, and, in AI, to early visions of automating science with AI itself \cite{hutter2001towards}. Yet, for decades, day-to-day research has remained highly manual: researchers must read and synthesize overwhelming amounts of literature to formulate ideas, and then design and execute experiments to validate them \cite{baek2025researchagent}. Many promising ideas are thus buried under the rising costs of evidence gathering and verification.
+
+Recent large language models (LLMs) \cite{achiam2023gpt} have made impressive progress in processing, organizing, and generating scientific text, enabling AI systems to assist across the full “idea generation—literature synthesis—experimental validation—manuscript writing” pipeline \cite{wang2023scientific}. A growing body of work uses LLMs to propose research ideas \cite{wang2023scimon,yang2024large,baek2025researchagent}, to assist in running or orchestrating experiments \cite{du2024llms}, or to act as AI scientists that generate open-ended scientific publications \cite{lu2024ai,yamada2025ai}. Going further, end-to-end frameworks now close the loop by integrating ideation, code authoring, experiment execution, writing, and simulated peer review, making it possible to produce reviewable papers from scratch \cite{weng2025cycleresearcher}.
+
+Despite these advances, fully automated research still faces a structural challenge: writing a research paper is a long-horizon process that requires multi-stage reasoning—from formulating testable hypotheses, to systematically aligning with the literature, to designing and revising feasible experiments. In practice, even expert researchers rarely “plan once and execute to the end.” Instead, they proceed non-linearly—tracking frontier results, probing prototypes, and continuously re-aligning ideas with evidence. We refer to the failure mode of static, one-shot plans as \emph{evidence drift}: scientific arguments must keep methods aligned with evidence, but static plans cannot absorb new facts surfaced by literature checks, pilot runs, or metric fluctuations. The result is a misalignment among method, evidence, and conclusion—manifesting as logical jumps between design and claims, mismatches between citations and implementations, or narrative statements that outrun their empirical support. Under this lens, static planning tends to enter a no-win corner: if one “reaches forward” for novelty without mid-course calibration, feasibility collapses; if one “steps back” for feasibility with early, conservative pruning, novelty collapses. These are not mere trade-offs by choice, but two facets of the same misalignment: a plan and its evolving evidence remain out of sync for too long, and the deviation becomes irrecoverable downstream.
+
+This observation motivates a different question: can we generate expert-level papers that are both novel and feasible by treating planning as a policy constrained by evidence, rather than a fixed script? Concretely, the goal is not to “revise frequently” per se, but to convert weak, incremental signals into actionable small steps, to front-load calibration and error correction into the process, and to treat each step’s inputs and outputs as state variables under control—thereby preserving soundness while pushing the frontier of innovation.
+
+We propose an Imitation-and-Evolve approach that operationalizes this principle in both writing and revision cycles. During writing, given a research theme, we first identify its algorithmic paradigm and task lineage, then retrieve frontier papers via academic graphs and entity-centric knowledge, and construct an initial plan in the “candidate algorithm × target task” space. Instead of “plan once, execute to the end,” we employ a dynamic re-planning loop: before each planned step, we retrieve evidence snippets from relevant documents to test feasibility; if the evidence is weak or conflicting, we revise that step or switch techniques; if the evidence supports, we execute the step, then parse execution logs and outputs to decide whether to re-plan subsequent steps. Thus, each step proceeds in a closed loop of “evidence retrieval—feasibility check—result review—re-plan,” which suppresses evidence drift and prevents error cascades.
+
+During revision, we again “imitate and evolve.” We retrieve public reviews from papers on similar topics, align their human criteria (clarity, validity, novelty, reproducibility, etc.), and distill them into executable edit instructions. We then run a fine-grained “self-review—LLM reviewer—action” cycle: each review point is decomposed into atomic edits; the system decides to revise or to rebut based on current content; and only if the post-edit score, measured against human-aligned criteria, improves significantly do we accept the change—otherwise we roll back. This gated loop from “review signal → action plan → effect measurement” avoids blind compliance and prevents over-editing, ensuring that every change yields real quality gains.
+
+In summary, our contributions are threefold. First, by matching and recombining “algorithm × task” under explicit evidence constraints, we expand the constructive search space and enable combinational innovation without sacrificing feasibility—resolving the aforementioned no-win corner. Second, by triggering dynamic re-planning through targeted evidence retrieval and result parsing, we decompose the long-horizon paper-generation problem into verifiable short-horizon decisions, continuously re-aligning plan, evidence, and conclusion to mitigate evidence drift. Third, by anchoring revision to human-aligned review criteria and enforcing a “revise-then-re-evaluate” gate, we convert external feedback into executable edits and guarantee measurable improvements rather than late-stage, costly overhauls. Compared to pipeline-style, fixed plans, our policy-like process better mirrors real scientific practice: it advances through uncertainty and feedback, and it evolves through alignment with evidence and standards—thereby increasing the likelihood of producing research outputs that are both genuinely novel and methodologically sound.
+
+\section{Related Work}
+
+\subsection{LLMs for Research}
+
+In recent years, several studies have explored using language models for creative
+tasks in research, such as multi-agent collaborative writing \cite{baek2025researchagent} and multi-module retrieval \cite{yang2024large} to improve research idea generation. These works aim to boost the novelty and diversity of AI in creative tasks. Si et al. \cite{si2024can} conducted a comprehensive human evaluation of the task of idea generation by language models. Wang et al. \cite{wang2024autosurvey} proposed using LLMs to automatically write survey papers. Additionally, LLMs have been used to automate the research process: Huang et al. \cite{huang2024mlagentbench} introduced a benchmark for evaluating LLMs in coding solutions for machine learning problems; Wang et al. \cite{wang2023scimon} proposed a method leveraging LLMs for scientific
+literature retrieval. The AI Scientist project \cite{lu2024ai} introduced a fully automated, promptdriven research pipeline. The following work, AI Scientist-v2 project \cite{yamada2025ai} further introduced a workshop-level automated scientific discovery via agentic tree search. More recently, Weng et al. \cite{weng2025cycleresearcher} developed an iterative self-rewarding framework that enables the LLM to refine its ideas continuously, enhancing both diversity and practicality in research proposal generation. Guo et al. \cite{guo2025ideabench} proposed a benchmark for evaluating LLMs in research idea generation. Pu et al. \cite{pu2025ideasynth} proposed a method for iterative research idea development through evolving and composing idea facets with literature-grounded feedback. Garikaparthi et al. \cite{garikaparthi2025iris} proposed a method for interactive research ideation system for accelerating scientific discovery.
+
+Existing work have made progress in research paper generation. However, they rely on static planning, challenges of.
+
+\subsection{Planning of LLM Agents}
+% LLM planining
+LLMs have achievedremarkable success across various domains, showcasing sig-nificant intelligence in reasoning, tool usage, planning, andinstruction-following. The surprising intelligence of LLMssheds light on employing LLMs as the cognitive core ofagents, thereby offering the potential to improve planning ability \cite{huang2024understanding}. For example, Plan-and-Solve \cite{wang2023plan} propose a two-step prompt instruction: “Let’s first de-vise a plan” and “Let’s carry out the plan”. This zero-shot approach has achieved improvements in mathematical rea-soning, common-sense reasoning, and symbolic reasoning. ProgPrompt \cite{singh2023progprompt} translates natural languagedescriptions of tasks into coding problems. It symbolizes theagent’s action space and objects in the environment throughcode, with each action formalized as a function and each ob-ject represented as a variable. Plan-Act \cite{erdogan2025planact} for HTML manipulation .  LLMCompiler \cite{kim2024llm} break down QA tasks into parallel execution graphs.
+
+Despite promising contributions in each direction,it is seen that LLMs still fall short in more complexscenarios, i.e., long-horizon planning \cite{chen2024can}.  There are several hierarchical planning frameworks. AgentOccam \cite{yangagentoccam} incorporates planning into the action space with tree-like planning, WebPilot \cite{zhang2025webpilot} uses six
+different agents, AdaPlanner \cite{sun2023adaplanner} employs InPlan and Out-of-Plan Refiners for replanning, and ADaPT \cite{prasad2024adapt} uses recursive decomposition. PLAN-AND-ACT \cite{erdogan2025plan} provides a simpler two-agent framework with a systematic approach to generating high-quality training data for open-source LLMs.
+
+However, lack of study on long-horizon planning for LLMs for research.
+
+\section{Method}
+
+In this section, we introduce our Imitation-and-Evolve approach in detail. The overall framework is shown in Figure \ref{fig:framework}.
+
+\subsection{Imitation-and-Evolve for Drafting}
+
+Given a user request $U$ describing a research topic, we first propose an imitation agent to imitate human expert planning. The imitation agent first prompts an LLM to analyze $U$ and decompose it into an algorithm of interest $U_A$ and an application of interest $U_T$. Formally, we represent this as $\Psi(U) = (U_A, U_T; r)$, where $\Psi$ is the decomposition function and $r$ denotes any additional requirements or constraints.
+
+Then, the imitation agent retrieves related work in terms of the algorithm of interest and the application of interest. The retrieval results are represented as $\phi(U_A) = {L_A^{(1)}, \ldots, L_A^{(K)}}$ and $\phi(U_T) = {L_T^{(1)}, \ldots, L_T^{(K)}}$, where $L_A^{(m)}$ and $L_T^{(n)}$ denote the $m$-th and $n$-th retrieved papers, respectively. The Imitation Agent is equipped with two tools: a search tool and a rerank tool. The search tool receives a query and invokes HuggingFace's search API to retrieve candidate papers. The rerank tool uses the bge-reranker-v2-m3 model to encode both the query and the titles and abstracts of the retrieved papers, and returns the top $K$ most similar results.
+
+To find an optimal combination, the imitation agent prompts the LLM to evaluate all pairs of retrieved algorithms and applications, and identify the best-matched pair. This process derives $M_A \in {L_A^{(m)}}$ and $M_T \in {L_T^{(n)}}$, representing the selected algorithm and application papers, respectively.
+
+The imitation agent refers to the section and subsection outlines of these selected papers as human expert plans for organizing the manuscript. The imitation agent prompts the LLM to extract the section and subsection structures, along with their summaries, from $M_A$ and $M_T$, resulting in $P_A = \sigma(M_A)$ and $P_T = \sigma(M_T)$. Next, the imitation agent imitates these outlines to generate a new outline for the target manuscript, with the algorithm of interest $U_A$, application of interest $U_T$, and any constraints $r$ as additional inputs, to derive $P$.
+
+The initial plan $P$ is handed off to the evolve agent, which is responsible for executing $P$ and updating it whenever discrepancies between the plan and observed results arise. The evolve agent follows an iterative paradigm, starting from step $n = 1$ and adjustment index $t = 1$, which corresponds to the initial execution before any adjustments. The plan at the $t$-th adjustment is denoted as $P^{(t)} = {P_1^{(t)}, \ldots, P_N^{(t)}}$, where $N$ is the number of planned steps. For the plan $P_n^{(t)}$ at the $n$-th step after $t-1$ adjustments, the evolve agent first fetches observations relevant to $P_n^{(t)}$. The evolve agent is equipped with two tools: (a) an external tool for fetching segments from external resources, and (b) a contextual tool for fetching content within the existing draft. When using these tools, the evolve agent is provided with external resources, such as $M_A$ and $M_T$, or the current draft as context. The LLM is prompted to identify the appropriate line ranges, and the content within these ranges is extracted and concatenated to facilitate efficient evidence gathering. The content retrieved from context for step $n$ is denoted as $C_n$, while the content retrieved from external resources is denoted as $E_n$. Using these observations, the evolve agent updates the plan according to
+
+\begin{equation}
+P_i^{t+1} = \pi(P_i^t \mid C^t, E^t, P_i^t)
+\end{equation}
+
+where $\pi$ is a policy function that revises each step $i$ of the current plan based on the available context $C^t$, external evidence $E^t$, and the $i$-th step of the current plan $P_i^t$. The policy function is implemented by prompting the LLM to update the plan according to the observations. Then, the evolve agent 
+
+The revised step $P_i^{t+1}$ is then executed to produce the draft $D_i$ for the $i$-th section, using the contextual segments $C_i$ and external segments $E_i$ as context, and $P_i^{t+1}$ as the instruction. After deriving the draft $D_i$, the imitation agent further updates the remaining steps in the plan. The subsequent plan steps are modified as needed to be appropriate given the new results:
+
+\begin{equation}
+P_j^{(t+2)} = 
+\begin{cases}
+P_j^{(t)}, & \text{if } j < i \\
+P_j^{(t+1)}, & \text{if } j = i \\
+\pi\left(P_j^{(t)} \mid \{D_p\}_{p \leq i},\, \{P_q^{(t)}\}_{q < j}\right), & \text{if } j > i
+\end{cases}
+\end{equation}
+
+where $P_j^{(t+2)}$ denotes the $j$-th step in the updated plan after considering the collection of drafts $\{D_p\}_{p \leq i}$ already produced and the collection of plan steps $\{P_q^{(t)}\}_{q < j}$ as context. In this paper, the LLM is prompted to revise the subsequent plan steps and return a revised version if the current steps are not appropriate; otherwise, the original steps are retained.
+
+Next, the evolve agent moves to the next step in the plan and starts a new round of iteration. This iterative process continues until all $N$ steps are completed. Finally, the evolve agent collects the section titles according to the last version of the plan and combines them with all the drafts ${D_1, D_2, \ldots, D_N}$ to form the main body of the manuscript. The evolve agent then prompts the LLM to generate the title and abstract based on the completed body as context. Supplemented with references, all the content is rendered into a LaTeX project according to the conference template, and the final PDF of the paper is generated.
+
+\subsection{Imitation-and-Evolve for Revision}
+
+After obtaining all section drafts $D_1, D_2, \ldots, D_k$, we employ an evaluation agent to assess the quality of the complete manuscript. We imitate human expert evaluation by conducting peer review on the draft. Following standard peer review protocols, we prompt the LLM to generate review feedback across multiple dimensions: summary, soundness, presentation, contribution, strengths, weaknesses, questions, rating, and meta-review results. This yields the first round of review feedback $R^{(1)} = \{r_{\text{summary}}, r_{\text{soundness}}, \ldots, r_{\text{meta}}\}$ along with a corresponding quality score $Q^{(1)}$. We then decompose $R^{(1)}$ into atomic, actionable review points $\{R_1^{(1)}, R_2^{(1)}, \ldots, R_N^{(1)}\}$, where each $R_j^{(1)}$ represents a specific critique or suggestion that can be addressed independently.
+
+The revision process proceeds iteratively through each review point. For each review point $R_j^{(1)}$, we first determine whether to revise or rebut. Since not all review feedback necessarily improves paper quality, we employ a decision function $C(R_j^{(1)}, D) \in \{0, 1\}$ that analyzes the review point against the current draft $D = \{D_1, D_2, \ldots, D_k\}$, where 0 indicates rebuttal and 1 indicates revision. This gating mechanism prevents blind compliance with potentially misguided feedback.
+
+When $C(R_j^{(1)}, D) = 1$, we proceed with revision through a targeted modification process. First, a localization agent identifies the specific sections $\mathcal{S}_j \subseteq \{D_1, D_2, \ldots, D_k\}$ that require modification to address $R_j^{(1)}$. For each identified section $D_i \in \mathcal{S}_j$, we deploy an evidence retrieval agent that searches across three sources: the current complete draft, downloaded paper content from $L_A \cup L_T$, and publicly available academic databases. The agent extracts relevant evidence snippets $E_j^{(i)} = \{e_1, e_2, \ldots, e_r\}$ that inform the revision. Based on $R_j^{(1)}$ and $E_j^{(i)}$, we generate a revision plan $P_j^{(i)}$ and execute it to produce the modified section $\hat{D}_i = \mathcal{M}(D_i, R_j^{(1)}, E_j^{(i)})$, where $\mathcal{M}$ is the modification function that incorporates the review feedback while maintaining consistency with supporting evidence.
+
+After completing the revision for review point $R_j^{(1)}$, we obtain an updated draft $\hat{D} = \{D_1, \ldots, \hat{D}_i, \ldots, D_k\}$ where modified sections replace their original versions. We then re-evaluate the updated draft to obtain a new quality score $\hat{Q}_j$. The revision is accepted only if $\hat{Q}_j > Q^{(1)}$, indicating genuine improvement. If $\hat{Q}_j \leq Q^{(1)}$, we roll back to the previous version, maintaining $D$ unchanged. This quality gate ensures that each accepted revision contributes positively to the overall manuscript quality, preventing the introduction of new errors or inconsistencies during the revision process.
+
+This process continues iteratively through all review points $\{R_1^{(1)}, R_2^{(1)}, \ldots, R_N^{(1)}\}$. After processing all points, we obtain the revised draft $D^{(2)}$ with quality score $Q^{(2)} \geq Q^{(1)}$. The entire revision cycle can be repeated with new rounds of review if needed, generating $R^{(2)}, R^{(3)}, \ldots$ until convergence or a predefined quality threshold is reached. By treating revision as a sequence of evidence-grounded, quality-gated decisions rather than blind compliance with feedback, our approach ensures that the manuscript evolves toward higher quality while maintaining scientific rigor and internal consistency. This mirrors the iterative refinement process that human researchers undergo when incorporating peer feedback, where each change is carefully evaluated for its net contribution to the work's clarity, validity, and impact.
+
+\section{Experiments}
+
+\subsection{Experimental Settings}
+
+Following the recenttrends in using LLMs to judge the quality of out-put texts (especially in the setting of reference-freeevaluations) \cite{zheng2023judging,liu2023g}, we use GPT-4 to judge the qual-ity of research ideas. Note that each of the problem,method, and experiment design is evaluated withfive different criteria. We ask the LLM-based evaluation model toeither rate the generated idea on a 5-point Likertscale for each criterion or perform pairwise compar-isons between two ideas from different models. 
+
+We compare AutoSurvey with surveys authored by human experts (collected from Arxiv) and naive RAG-based LLMs across 20 different computer science topics across 20 different topics in
+the field of LLMs (see Table 6). For the naive RAG-based LLMs, we begin with a title and a survey
+length requirement, then iteratively prompt the model to write the content until completion. Note that we also provide the model with the same number of reference papers with AutoSurvey.
+
+We mainly use the GPT-4 \cite{achiam2023gpt} releasefrom Nov 06, 2023, as the basis for all models,which is, notably, reported to be trained with dataup to Apr 2023 (meanwhile, the papers used foridea generation appear after May 2023).
+
+\subsection{Comparative Experiments}
+
+We extensively evaluate The AI Scientist on three templates (as described in Section 3) acrossdifferent publicly available LLMs: Claude Sonnet 3.5 (Anthropic, 2024), GPT-4o (OpenAI, 2023), DeepSeek Coder (Zhu et al., 2024), and Llama-3.1 405b (Llama Team, 2024).  The first two modelsare only available by a public API, whilst the second two models are open-weight. 
+
+
+\section{Conclusion}
+
+We have proposed a new method to solve the challenges in AI research paper generation.
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sample-base}
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf.tex'.
