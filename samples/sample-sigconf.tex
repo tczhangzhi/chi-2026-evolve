@@ -247,14 +247,17 @@ TODO.
 \maketitle
 
 \section{Introduction}
+Scientific research plays a crucial role in drivinginnovation, advancing knowledge, solving problems, expanding our understanding of the world,and ultimately improving the lives of people in tan-gible ways \cite{wang2023scientific}. However, thisis a slow, effort-intensive process, which requiresreading and synthesizing overwhelming amountsof knowledge over the vast corpus of rapidly growing scientific literature to formulate research ideas,as well as design and perform experimental valida-tions of those ideas \cite{hope2023computational}. Many promising ideas are thus buried under the intensive effort.
 
-Artificial Intelligence (AI) increasingly influences the landscape of scientific research \cite{gil2014amplify,wang2023scientific}. Automating general scientific discovery has been a long-standing ambition of the research community, dating back to the 1970s–1980s \cite{langley1987scientific} with the advent of computer science, and, in AI, to early visions of automating science with AI itself \cite{hutter2001towards}. Yet, for decades, day-to-day research has remained highly manual: researchers must read and synthesize overwhelming amounts of literature to formulate ideas, and then design and execute experiments to validate them \cite{baek2025researchagent}. Many promising ideas are thus buried under the rising costs of evidence gathering and verification.
+Automating general scientific discovery has been a long-standing ambition of the research community, dating back to the 1970s–1980s \cite{langley1987scientific}. Recent large language models (LLMs) \cite{achiam2023gpt} have made impressive progress in processing, organizing, and generating scientific text \cite{wang2023scientific}. Most current efforts have relied on commercial LLMs to build agents that propose research ideas research ideas \cite{wang2023scimon,yang2024large,baek2025researchagent}, asan assistant to conduct experiment \cite{du2024llms}, or an AI scientist capable of generating automated open-ended scientific publications \cite{lu2024ai,yamada2025ai}.Most recent work now close the loop performing the full cycle of automated researchand review, from literature review and manuscript preparation to peer review andpaper refinement.  \cite{weng2025cycleresearcher}.
 
-Recent large language models (LLMs) \cite{achiam2023gpt} have made impressive progress in processing, organizing, and generating scientific text, enabling AI systems to assist across the full “idea generation—literature synthesis—experimental validation—manuscript writing” pipeline \cite{wang2023scientific}. A growing body of work uses LLMs to propose research ideas \cite{wang2023scimon,yang2024large,baek2025researchagent}, to assist in running or orchestrating experiments \cite{du2024llms}, or to act as AI scientists that generate open-ended scientific publications \cite{lu2024ai,yamada2025ai}. Going further, end-to-end frameworks now close the loop by integrating ideation, code authoring, experiment execution, writing, and simulated peer review, making it possible to produce reviewable papers from scratch \cite{weng2025cycleresearcher}.
+With the 前沿 generated the first workshop paper written entirely by AI and accepted through peer review \cite{yamada2025ai}, there is 仍有很长的 road for Automating general scientific discovery 达到 human expert 的水平,  technically sound, well-organized and clearly written, especially when the research problems addressed, or methods is novel from exisitng work. In this paper, we focus on one of the most challening bottlneck, error accumulation long-horizon planning. It is known drafting a writing a research paper is a long-horizon process that requires multi-stage reasoning, from literature review and manuscript preparation to peer review andpaper refinement. Previous studies on multi-step models show that the inherent long-horizon workflow of such systems inevitably introduces the risk of compounding errors. In the workflow, small mistakes made at earlier steps can accumulate and propagate through subsequent steps, as errors that occur at a certain step will affect the next state \cite{wang2025expressive}. Without effective self-correction mechanisms, these deviations will further expand the error in later steps \cite{han2023expert, venkatraman2015improving, hejna2023improving}.
 
-Despite these advances, fully automated research still faces a structural challenge: writing a research paper is a long-horizon process that requires multi-stage reasoning—from formulating testable hypotheses, to systematically aligning with the literature, to designing and revising feasible experiments. In practice, even expert researchers rarely “plan once and execute to the end.” Instead, they proceed non-linearly—tracking frontier results, probing prototypes, and continuously re-aligning ideas with evidence. We refer to the failure mode of static, one-shot plans as \emph{evidence drift}: scientific arguments must keep methods aligned with evidence, but static plans cannot absorb new facts surfaced by literature checks, pilot runs, or metric fluctuations. The result is a misalignment among method, evidence, and conclusion—manifesting as logical jumps between design and claims, mismatches between citations and implementations, or narrative statements that outrun their empirical support. Under this lens, static planning tends to enter a no-win corner: if one “reaches forward” for novelty without mid-course calibration, feasibility collapses; if one “steps back” for feasibility with early, conservative pruning, novelty collapses. These are not mere trade-offs by choice, but two facets of the same misalignment: a plan and its evolving evidence remain out of sync for too long, and the deviation becomes irrecoverable downstream.
+As a demonstration, we employ the state-of-the-art large language model GPT-4.1 \cite{openai2025gpt41} to conduct a plan and then draft a research paper on \textit{Diffusion models for data augmentation in EEG (electroencephalogram)-based emotion recognition}.
 
-This observation motivates a different question: can we generate expert-level papers that are both novel and feasible by treating planning as a policy constrained by evidence, rather than a fixed script? Concretely, the goal is not to “revise frequently” per se, but to convert weak, incremental signals into actionable small steps, to front-load calibration and error correction into the process, and to treat each step’s inputs and outputs as state variables under control—thereby preserving soundness while pushing the frontier of innovation.
+Based on this observation, 我们认为静态的 plan 不适用于 long-horizon planining in scientif research. It is known that scientific arguments must keep methods aligned with evidence, but static plans cannot absorb new facts surfaced by literature checks, pilot runs, or metric fluctuations. The result is a misalignment among method, evidence, and conclusion—manifesting as logical jumps between design and claims, mismatches between citations and implementations, or narrative statements that outrun their empirical support. Under this lens, static planning tends to enter a no-win corner: if one “reaches forward” for novelty without mid-course calibration, feasibility collapses; if one “steps back” for feasibility with early, conservative pruning, novelty collapses.
+
+Acutally, even expert researchers rarely “plan once and execute to the end.” Instead, they proceed non-linearly—tracking frontier results, probing prototypes, and continuously re-aligning ideas with evidence. 
 
 We propose an Imitation-and-Evolve approach that operationalizes this principle in both writing and revision cycles. During writing, given a research theme, we first identify its algorithmic paradigm and task lineage, then retrieve frontier papers via academic graphs and entity-centric knowledge, and construct an initial plan in the “candidate algorithm × target task” space. Instead of “plan once, execute to the end,” we employ a dynamic re-planning loop: before each planned step, we retrieve evidence snippets from relevant documents to test feasibility; if the evidence is weak or conflicting, we revise that step or switch techniques; if the evidence supports, we execute the step, then parse execution logs and outputs to decide whether to re-plan subsequent steps. Thus, each step proceeds in a closed loop of “evidence retrieval—feasibility check—result review—re-plan,” which suppresses evidence drift and prevents error cascades.
 
@@ -358,10 +361,149 @@ length requirement, then iteratively prompt the model to write the content until
 
 We mainly use the GPT-4 \cite{achiam2023gpt} releasefrom Nov 06, 2023, as the basis for all models,which is, notably, reported to be trained with dataup to Apr 2023 (meanwhile, the papers used foridea generation appear after May 2023).
 
-\subsection{Comparative Experiments}
 
-We extensively evaluate The AI Scientist on three templates (as described in Section 3) acrossdifferent publicly available LLMs: Claude Sonnet 3.5 (Anthropic, 2024), GPT-4o (OpenAI, 2023), DeepSeek Coder (Zhu et al., 2024), and Llama-3.1 405b (Llama Team, 2024).  The first two modelsare only available by a public API, whilst the second two models are open-weight. 
+\section{Experiments}
 
+\subsection{Experimental Settings}
+
+
+We conduct experiments on two benchmark datasets, AutoSurvey \cite{wang2024autosurvey} and SurveyEval \cite{wang2025llm}, as well as a self-constructed benchmark dataset, TopSurvey. For hyperparameters, we set the maximum number of iterations for exploration, exploitation, and experience taskforces to 4. The hyperparameter $\theta$ is set to 500. We use GPT-4.1 as the LLM for both generation and evaluation. The evaluation comprises two categories of metrics. For citation quality, we adopt citation recall and citation precision as proposed by \citet{wang2024autosurvey}: recall measures whether cited passages fully support all statements, while precision measures the proportion of relevant citations that support their corresponding statements. For content quality, following \citet{wang2024autosurvey}, we use coverage, structure, and relevance, each rated by LLMs on a 5-point scale. Coverage assesses the extent to which the survey addresses all relevant aspects of the topic; structure evaluates logical organization and coherence; and relevance measures alignment with the specified research topic. We do not filter out fractional scores, such as 4.5.
+
+\subsection{Comparision Experiments}
+
+We first evaluate our framework on the AutoSurvey \cite{wang2024autosurvey} benchmark, following the protocols established by \citet{liang2025surveyx, wang2024autosurvey}. We use the same 20 topics from diverse subfields of LLM research to generate survey articles for comparison. We compare our approach with three baselines: Naive RAG-based LLMs using retrieval-augmented generation, AutoSurvey \cite{wang2024autosurvey}, and SurveyX \cite{liang2025surveyx}. We use the official implementations of AutoSurvey\footnote{https://github.com/AutoSurveys/AutoSurvey} and SurveyX\footnote{https://github.com/IAAR-Shanghai/SurveyX} to conduct experiments. Due to the lack of an online version of SurveyX, we conduct offline generation.
+
+As shown in Table \ref{tab:comparision_experiments}, most algorithms exhibit reduced performance as survey length increases, particularly in recall, precision, structure, and relevance. This decline is most pronounced in the Naive RAG baseline, indicating that longer workflows lead to greater error accumulation and propagation. In contrast, coverage remains stable or improves with longer surveys, likely due to more comprehensive topic inclusion. State-of-the-art methods such as AutoSurvey and SurveyX continue to face challenges with citation precision, frequently generating statements unsupported by references. For content quality, structure consistently receives the lowest scores, reflecting disorganized article organization. Our proposed method remains robust to these issues and consistently achieves superior results across all metrics.
+
+We further evaluate our framework on the SurveyEval benchmark \cite{wang2025llm}, using the same protocols. SurveyEval is the first benchmark in computer science that pairs surveys with complete reference papers, comprising 384 arXiv cs.CL surveys citing over 26,000 references. Twenty topics were selected for testing based on reference completeness and reference list diversity. Experimental results are shown in Fig. \ref{fig:surveyeval}, with Coverage, Structure, and Relevance scores normalized to a 100-point scale.
+
+\begin{table}[h]
+    \centering
+    \begin{adjustbox}{width=\columnwidth}
+    % \begin{adjustbox}{}
+        \begin{tabular}{lllllll}
+            \toprule
+            \multirow{2.5}{*}{Methods} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{4}{c}{Content Quality} \\
+            \cmidrule(lr){2-3} \cmidrule(lr){4-7}
+            & Rec. $\uparrow$ & Pre. $\uparrow$ & Cov. $\uparrow$ & Str. $\uparrow$ & Rel. $\uparrow$ & Avg. $\uparrow$ \\
+            \midrule
+            w/o exploration  & 94.38 & 88.56 & 4.83 & 4.83 & 5.00 & 4.89 \\
+            w/o exploitation & 97.86 & 79.02 & 4.97 & 4.93 & 4.93 & 4.94 \\
+            w/o experience        & 97.78 & 80.82 & 4.79 & 4.89 & 4.97 & 4.88 \\
+            \cellcolor{gray!15}Proposed & \cellcolor{gray!15}\textbf{98.17} & \cellcolor{gray!15}\textbf{89.28} & \cellcolor{gray!15}\textbf{4.97} & \cellcolor{gray!15}\textbf{4.95} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.97} \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \caption{Ablation study of the proposed modules on the benchmark dataset.}
+    \label{tab:ablation_study}
+\end{table}
+% Removing the exploration taskforce is denoted as \textit{w/o Exploration}, removing the exploitation taskforce as \textit{w/o Exploitation}, and removing the experience taskforce as \textit{w/o Experience}. Higher scores indicate better performance.
+
+In Fig. \ref{fig:surveyeval}, all methods achieve high coverage and relevance, indicating that LLMs like GPT-4.1 can generate comprehensive and relevant content. However, recall and precision remain low, reflecting poor reference retrieval and insufficient support for generated statements. As a result, state-of-the-art methods struggle with logical organization, leading to lower structure scores. Our method overcomes these issues, achieving the best performance across all metrics.
+
+\begin{table*}[]
+    \centering
+    % \begin{adjustbox}{width=\columnwidth}
+    \begin{adjustbox}{width=0.75\linewidth}
+        \begin{tabular}{lllllll}
+            \toprule
+            \multirow{2.5}{*}{Methods} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{4}{c}{Content Quality} \\
+            \cmidrule(lr){2-3} \cmidrule(lr){4-7}
+            & Recall $\uparrow$ & Precision $\uparrow$ & Coverage $\uparrow$ & Structure $\uparrow$ & Relevance $\uparrow$ & Avg. $\uparrow$ \\
+            \midrule
+            Human                & 93.07 & 87.76 & 5.00 & 4.97 & 5.00 & 4.99 \\
+            Naive RAG (2024)     & 64.57 & 61.89 & 4.29 & 3.58 & 4.67 & 4.18 \\
+            AutoSurvey (2024)    & 70.03 & 71.66 & 4.68 & 4.67 & 4.87 & 4.74 \\
+            SurveyX (2025)       & 75.51 & 77.90 & 4.71 & 4.84 & 4.93 & 4.83 \\
+            \cellcolor{gray!15}Proposed & \cellcolor{gray!15}\textbf{86.63} & \cellcolor{gray!15}\textbf{81.98} & \cellcolor{gray!15}\textbf{4.85} & \cellcolor{gray!15}\textbf{4.90} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.92} \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \caption{Comparison of automatic survey generation methods at a survey length of 64k tokens on the new large-scale benchmark dataset. Higher scores indicate better performance.}
+    \label{tab:comparison_64k}
+\end{table*}
+
+\begin{table}[h]
+    \centering
+    \begin{adjustbox}{width=\columnwidth}
+        \begin{tabular}{clllllll}
+            \toprule
+            \multirow{2.5}{*}{Method} & \multirow{2.5}{*}{Iteration} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{4}{c}{Content Quality} \\
+            \cmidrule(lr){3-4} \cmidrule(lr){5-8}
+            & & Rec. $\uparrow$ & Pre. $\uparrow$ & Cov. $\uparrow$ & Str. $\uparrow$ & Rel. $\uparrow$ & Avg. $\uparrow$ \\
+            \midrule
+            \multirow{5}{*}{Exper.}
+            & 1 & 83.64 & 74.37 & 4.61 & 4.79 & 4.94 & 4.78 \\
+            & 2 & 84.99 & 78.19 & 4.77 & 4.83 & 4.98 & 4.86 \\
+            & 3 & 85.11 & 80.13 & 4.82 & 4.86 & 4.98 & 4.89 \\
+            & \cellcolor{gray!15}4 & \cellcolor{gray!15}86.63 & \cellcolor{gray!15}\textbf{81.98} & \cellcolor{gray!15}\textbf{4.85} & \cellcolor{gray!15}\textbf{4.90} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.92} \\
+            & 5 & \textbf{86.71} & 81.86 & \textbf{4.85} & 4.88 & 4.98 & 4.90 \\
+            \midrule
+            \multirow{5}{*}{Explor.}
+            & 1 & 82.84 & 81.26 & 4.71 & 4.78 & \textbf{5.00} & 4.83 \\
+            & 2 & 84.79 & 81.67 & 4.83 & 4.82 & \textbf{5.00} & 4.88 \\
+            & 3 & 85.69 & 81.97 & \textbf{4.85} & 4.84 & \textbf{5.00} & 4.90 \\
+            & \cellcolor{gray!15}4 & \cellcolor{gray!15}86.63 & \cellcolor{gray!15}\textbf{81.98} & \cellcolor{gray!15}\textbf{4.85} & \cellcolor{gray!15}\textbf{4.90} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.92} \\
+            & 5 & \textbf{86.65} & 81.92 & \textbf{4.85} & 4.87 & \textbf{5.00} & 4.91 \\
+            \midrule
+            \multirow{5}{*}{Exploi.}
+            & 1 & 86.31 & 72.68 & 4.81 & 4.87 & 4.91 & 4.86 \\
+            & 2 & 86.00 & 77.34 & 4.83 & 4.90 & 4.94 & 4.89 \\
+            & 3 & \textbf{86.75} & 79.10 & 4.84 & 4.89 & 4.98 & 4.90 \\
+            & \cellcolor{gray!15}4 & \cellcolor{gray!15}86.63 & \cellcolor{gray!15}\textbf{81.98} & \cellcolor{gray!15}\textbf{4.85} & \cellcolor{gray!15}\textbf{4.90} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.92} \\
+            & 5 & 86.47 & 80.27 & 4.84 & 4.89 & 5.00 & 4.91 \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \caption{Sensitivity experiments across different iterations for the experience, exploration, and exploitation taskforces on the new large-scale benchmark.}
+    \label{tab:iteration_comparison}
+\end{table}
+
+%  \textit{Exper.} denotes the experience taskforce; \textit{Explor.} denotes the exploration taskforce; and \textit{Exploi.} denotes the exploitation taskforce. Higher scores indicate better performance.
+
+\subsection{Ablation Study}
+\label{sec:ablation_study}
+
+We further conduct an ablation study to evaluate the effectiveness of each component in our proposed framework. Experiments are performed on the same benchmark dataset as before, with all experimental settings unchanged and the survey length set to 8k tokens. We compare the full model with three variants. We use a single round of retrieval and organization for the variant without the exploration taskforce to generate the overall outline. We draft the manuscript using only one round of extraction and writing for the variant without the exploitation taskforce. For the variant without the experience taskforce, each agent completes its assigned task, without revision.
+
+Table \ref{tab:ablation_study} presents the results. Removing the exploration taskforce causes the largest drops in recall and structure, demonstrating its importance for citation recall and logical organization. Excluding the exploitation taskforce sharply reduces precision and relevance, confirming its role in improving citation precision and content relevance. Without the experience taskforce, all metrics decrease, especially coverage, highlighting its key role in ensuring comprehensive coverage through collaborative revision.
+
+\subsection{A New Large-Scale Benchmark}
+
+To further validate the effectiveness of our proposed framework, we construct a new large-scale benchmark dataset. This dataset consists of 195 topics from various subfields of computer science, nearly 10 times larger than previous benchmarks \cite{wang2024autosurvey, liang2025surveyx}. To ensure topic quality, we collect peer-reviewed survey topics from top computer science conferences, rather than from preprint sources such as arXiv. Survey papers accepted only as abstracts are excluded. To prevent data leakage from LLM pretraining data, we include only survey papers published in 2023, 2024, and 2025. We employ PhD students in computer science to verify whether a paper qualifies as a survey and to collect the final set of 195 survey papers: 9 from AAAI, 34 from ACL, 46 from EMNLP, 3 from ICLR, 2 from ICML, 77 from IJCAI, and 24 from NAACL. Of these, 68 were published in 2023, 105 in 2024, and 22 in 2025.
+
+We conduct experiments using the same settings as above, generating 64k-token literature reviews for evaluation. As shown in Table \ref{tab:comparison_64k}, compared with results on the existing benchmark in Table \ref{tab:comparision_experiments}, performance on the new large-scale benchmark drops significantly, particularly in recall and coverage. This may be due to the greater number and broader range of topics, which leads to some relevant literature not being retrieved, resulting in lower citation recall and coverage. Precision also drops slightly, likely because the models lack knowledge of the most recent two years. Therefore, compared to existing benchmarks, the new large-scale benchmark is more challenging and leads to more errors in generation. Despite this, our proposed method achieves over 80\% in citation scores and an average content quality score of 4.92.
+
+\subsection{Sensitivity Analysis}
+
+To gain deeper insight into our framework, we conduct a sensitivity analysis to observe how self-improving iterations affect performance. We evaluate the experience, exploration, and exploitation taskforces across different numbers of iterations, employing a controlled variable approach: when varying one hyperparameter, all others are held constant as previously described.
+
+The results are presented in Table \ref{tab:iteration_comparison}. We find that the second and third iterations yield the most significant improvements. This indicates that errors can accumulate at various steps in the workflow, and iterative refinement effectively reduces intermediate errors, thereby enhancing the quality of the final results. Both the Experience and exploitation taskforces contribute most to faithfulness; from the first to the fourth iteration, the number of references supporting claims in the final output increases by a large margin. Additionally, the Experience and exploration taskforces contribute notably to coverage and structural quality, suggesting that a single revision is often insufficient for comprehensive improvement. However, the effect of additional iterations gradually diminishes. By the fifth iteration, we observe a slight decline, due to unnecessary modifications overwriting correct results and introducing new errors.
+
+\begin{table}[]
+    \centering
+    \begin{adjustbox}{width=\columnwidth}
+    \begin{tabular}{clllll}
+    \toprule
+    \multirow{2.5}{*}{Cluster} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{3}{c}{Content Quality} \\
+    \cmidrule(lr){2-3} \cmidrule(lr){4-6}
+    & Recall $\uparrow$ & Precision $\uparrow$ & Coverage $\uparrow$ & Structure $\uparrow$ & Relevance $\uparrow$ \\
+    \midrule
+    1 & 83.61 & \textbf{82.57} & 4.67 & 4.78 & 4.93 \\
+    2 & 84.54 & 75.12 & 4.75 & 4.85 & 4.85 \\
+    3 & 72.29 & 76.11 & 4.59 & 4.88 & 4.87 \\
+    4 & \textbf{86.63} & 81.98 & \textbf{4.85} & \textbf{4.90} & \textbf{5.00} \\
+    5 & 81.37 & 69.77 & 4.66 & 4.74 & 4.73 \\
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \caption{Real-world case study across different topics on 400 generated results. Higher scores indicate better performance.}
+    \label{tab:cluster_comparison}
+\end{table}
+
+\subsection{Disscussions}
+
+We evaluated our framework in a real-world setting by deploying an online automatic literature review generation system\footnote{Anonymous for review; to be revealed upon acceptance.}, which has produced over 20,000 reviews. We randomly selected 400 reviews, embedded them with all-MiniLM-L6-v2, and applied K-means clustering to form five groups. Results show differences in citation and content quality among clusters. The best performance appears in computer science (cluster 4), while education and social sciences (cluster 3) perform worse, especially in citation quality. It may result from the search engine not including part of the relevant literature in the social sciences. We also measured system efficiency, and generating an 8,000-token review takes an average of 8.45 minutes.
 
 \section{Conclusion}
 
