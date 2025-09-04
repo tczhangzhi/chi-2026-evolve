@@ -51,6 +51,15 @@
   \providecommand\BibTeX{{%
     Bib\TeX}}}
 
+% CUSTOMIZED PACKAGES
+% \usepackage{amsmath,amsfonts}
+\usepackage{multirow}
+\usepackage{adjustbox}
+% \usepackage{amssymb}
+\usepackage[breakable]{tcolorbox}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+
 %% Rights management information.  This information is sent to you
 %% when you complete the rights form.  These commands have SAMPLE
 %% values in them; it is your responsibility as an author to replace
@@ -113,7 +122,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Imitate-and-Evolve: A Multi-agent frameowrk to Bootstrap Long-Horizon Planning for Scientific Research Generation}
+\title{Imitate-and-Evolve: AI Research Assistants for Long-Horizon Planning and Execution with Human-in-the-Loop}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -197,7 +206,7 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-TODO.
+Scientific research is a complex process that drives innovation and knowledge advancement. Automating research tasks can reduce researchers' workload and accelerate discovery, but long-horizon planning and execution introduce challenges such as error accumulation and misalignment with human intent. We present Imitate-and-Evolve, a framework that organizes AI research assistants to collaborate with human researchers throughout the research process. In this framework, imitation agents retrieve and emulate reference plans from external sources based on the human researcher's initial idea. Evolution agents use various tools to gather new observations and iteratively refine the plan during execution, guided by human feedback and approval. By integrating imitation and evolution, the AI assistant team automates research tasks while staying aligned with human intent, leading to faithful and desirable outcomes. Experiments show that our framework improves the quality of generated research papers, as measured by review ratings.
 \end{abstract}
 
 %%
@@ -225,7 +234,7 @@ TODO.
 %%
 %% Keywords. The author(s) should pick words that accurately describe
 %% the work being presented. Separate the keywords with commas.
-\keywords{Imitate-and-Evolve, Long-Horizon Planning, Research Paper Generation}
+\keywords{Imitation-and-Evolve, Long-Horizon Planning, Research Paper Generation}
 %% A "teaser" image appears between the author and affiliation
 %% information and the body of the document, and typically spans the
 %% page.
@@ -247,42 +256,33 @@ TODO.
 \maketitle
 
 \section{Introduction}
-Scientific research plays a crucial role in drivinginnovation, advancing knowledge, solving problems, expanding our understanding of the world,and ultimately improving the lives of people in tan-gible ways \cite{wang2023scientific}. However, thisis a slow, effort-intensive process, which requiresreading and synthesizing overwhelming amountsof knowledge over the vast corpus of rapidly growing scientific literature to formulate research ideas,as well as design and perform experimental valida-tions of those ideas \cite{hope2023computational}. Many promising ideas are thus buried under the intensive effort.
+Scientific research plays an important role in driving innovation, advancing knowledge, solving problems, expanding our understanding of the world, and ultimately improving people's lives in tangible ways \cite{wang2023scientific}. However, the research process is labor-intensive, requiring researchers to read and synthesize overwhelming amounts of knowledge from a vast and rapidly growing scientific literature in order to formulate research ideas and design corresponding experiments \cite{hope2023computational}. As a result, many promising ideas are often abandoned or overlooked due to the substantial effort needed to identify and validate them.
 
-Automating general scientific discovery has been a long-standing ambition of the research community, dating back to the 1970s–1980s \cite{langley1987scientific}. Recent large language models (LLMs) \cite{achiam2023gpt} have made impressive progress in processing, organizing, and generating scientific text \cite{wang2023scientific}. Most current efforts have relied on commercial LLMs to build agents that propose research ideas research ideas \cite{wang2023scimon,yang2024large,baek2025researchagent}, asan assistant to conduct experiment \cite{du2024llms}, or an AI scientist capable of generating automated open-ended scientific publications \cite{lu2024ai,yamada2025ai}.Most recent work now close the loop performing the full cycle of automated researchand review, from literature review and manuscript preparation to peer review andpaper refinement.  \cite{weng2025cycleresearcher}.
+Automating scientific discovery has been a long-standing ambition in the research community, with early explorations tracing back to the 1970s and 1980s \cite{langley1987scientific}. The recent emergence of large language models (LLMs) \cite{achiam2023gpt} has driven remarkable progress in processing, organizing, and generating scientific text \cite{wang2023scientific}. Increasing efforts now leverage commercial LLMs to develop research agents that can propose novel research ideas \cite{wang2023scimon,yang2024large,baek2025researchagent}, assist in designing and conducting experiments \cite{du2024llms}, or function as AI scientists capable of generating complete, open-ended scientific publications automatically \cite{lu2024ai,yamada2025ai}. State-of-the-art systems further permit closing the loop by automating the entire research and review cycle, including literature review, manuscript drafting, peer review, and iterative paper refinement \cite{weng2025cycleresearcher}.
 
-With the 前沿 generated the first workshop paper written entirely by AI and accepted through peer review \cite{yamada2025ai}, there is 仍有很长的 road for Automating general scientific discovery 达到 human expert 的水平,  technically sound, well-organized and clearly written, especially when the research problems addressed, or methods is novel from exisitng work. In this paper, we focus on one of the most challening bottlneck, error accumulation long-horizon planning. It is known drafting a writing a research paper is a long-horizon process that requires multi-stage reasoning, from literature review and manuscript preparation to peer review andpaper refinement. Previous studies on multi-step models show that the inherent long-horizon workflow of such systems inevitably introduces the risk of compounding errors. In the workflow, small mistakes made at earlier steps can accumulate and propagate through subsequent steps, as errors that occur at a certain step will affect the next state \cite{wang2025expressive}. Without effective self-correction mechanisms, these deviations will further expand the error in later steps \cite{han2023expert, venkatraman2015improving, hejna2023improving}.
+Recent progress has pushed the boundary to the point where a workshop paper written entirely by AI has been accepted through peer review \cite{yamada2025ai}. However, as highlighted by human evaluations of generated manuscripts \cite{yamada2025ai}, current systems still struggle to produce drafts that are technically sound, well-organized, and clearly written, especially when addressing novel research problems or methods not well represented in existing literature. One of the most challenging bottlenecks leading to these problems is error accumulation in long-horizon planning. Drafting a research paper is inherently a long-horizon task, involving multiple stages of reasoning from literature review and manuscript preparation to peer review and paper refinement. Prior studies on multi-step models have shown that such long-horizon planning inevitably introduces the risk of compounding errors: small mistakes made in early steps can accumulate and propagate through subsequent planning stages, as errors at one stage directly impact downstream decisions \cite{wang2025expressive, han2023expert, venkatraman2015improving, hejna2023improving}.
 
-As a demonstration, we employ the state-of-the-art research assistant,  OpenAI' Deep Research \cite{openai2025gpt41} and Gemini Deep Research to draft a  paper on \textit{Diffusion models for data augmentation in EEG (electroencephalogram)-based emotion recognition}. As shown in Fig. \ref{fig:deep_research}, the generated paper contains several critical flaws, including a misalignment between the proposed method and the cited references, as well as inconsistencies between the experimental design and the stated research objectives. 检查错误的来源,我们发现 plan 和事实并不 match These issues likely stem from error accumulation during the long-horizon planning process
+As a demonstration, we employ state-of-the-art research assistants, OpenAI's Deep Research \cite{openai2025gpt41} and Gemini Deep Research, to draft a paper on Diffusion models for data augmentation in EEG (electroencephalogram)-based emotion recognition. As shown in Fig. \ref{fig:deep_research}, we observe that similar issues exist in the outputs of both Deep Research systems. For example, the planned survey section lacks relevant literature in the retrieved results, resulting in missing citations and hallucinated related work. The proposed method is constructed on top of these hallucinated references, lacking a solid technical foundation. Furthermore, the experimental setting employs inappropriate datasets, which further undermines the validity of the research plan.
 
-Based on this observation, a question raise: what is the best way to plan for long-horizon research paper generation mitigate the error accumulation?  It is known that scientific arguments must keep methods aligned with evidence, but static plans cannot absorb new facts surfaced by literature checks, pilot runs, or metric fluctuations. The result is a misalignment among method, evidence, and conclusion—manifesting as logical jumps between design and claims, mismatches between citations and implementations, or narrative statements that outrun their empirical support. Under this lens, static planning tends to enter a no-win corner: if one “reaches forward” for novelty without mid-course calibration, feasibility collapses; if one “steps back” for feasibility with early, conservative pruning, novelty collapses.
+Based on these observations, a question arises: How can we mitigate error accumulation in long-horizon planning for scientific research generation? We find that if a plan cannot effectively incorporate new observations, there is a persistent risk of misalignment between the plan and the actual observations. It is hard to anticipate potential observations in advance if possible. Even expert researchers rarely plan and execute an entire research project without making revisions. Instead, they continuously track new results and iteratively realign their ideas with emerging evidence throughout the research process.
 
-Acutally, even expert researchers rarely “plan once and execute to the end.” Instead, they proceed non-linearly—tracking frontier results, probing prototypes, and continuously re-aligning ideas with evidence. 
-
-We propose an Imitation-and-Evolve approach that operationalizes this principle in both writing and revision cycles. During writing, given a research theme, we first identify its algorithmic paradigm and task lineage, then retrieve frontier papers via academic graphs and entity-centric knowledge, and construct an initial plan in the “candidate algorithm × target task” space. Instead of “plan once, execute to the end,” we employ a dynamic re-planning loop: before each planned step, we retrieve evidence snippets from relevant documents to test feasibility; if the evidence is weak or conflicting, we revise that step or switch techniques; if the evidence supports, we execute the step, then parse execution logs and outputs to decide whether to re-plan subsequent steps. Thus, each step proceeds in a closed loop of “evidence retrieval—feasibility check—result review—re-plan,” which suppresses evidence drift and prevents error cascades.
-
-During revision, we again “imitate and evolve.” We retrieve public reviews from papers on similar topics, align their human criteria (clarity, validity, novelty, reproducibility, etc.), and distill them into executable edit instructions. We then run a fine-grained “self-review—LLM reviewer—action” cycle: each review point is decomposed into atomic edits; the system decides to revise or to rebut based on current content; and only if the post-edit score, measured against human-aligned criteria, improves significantly do we accept the change—otherwise we roll back. This gated loop from “review signal → action plan → effect measurement” avoids blind compliance and prevents over-editing, ensuring that every change yields real quality gains.
-
-In summary, our contributions are threefold. First, by matching and recombining “algorithm × task” under explicit evidence constraints, we expand the constructive search space and enable combinational innovation without sacrificing feasibility—resolving the aforementioned no-win corner. Second, by triggering dynamic re-planning through targeted evidence retrieval and result parsing, we decompose the long-horizon paper-generation problem into verifiable short-horizon decisions, continuously re-aligning plan, evidence, and conclusion to mitigate evidence drift. Third, by anchoring revision to human-aligned review criteria and enforcing a “revise-then-re-evaluate” gate, we convert external feedback into executable edits and guarantee measurable improvements rather than late-stage, costly overhauls. Compared to pipeline-style, fixed plans, our policy-like process better mirrors real scientific practice: it advances through uncertainty and feedback, and it evolves through alignment with evidence and standards—thereby increasing the likelihood of producing research outputs that are both genuinely novel and methodologically sound.
+In this paper, we propose an Imitation-and-Evolve Multi-agent framework to address the challenge of error accumulation in long-horizon planning for scientific research generation. The contributions of our framework are threefold. (1) We are the first to introduce a multi-agent framework to mitigate error accumulation in long-horizon planning for scientific research generation. The proposed framework employs imitation agents to retrieve reference plans from external sources and evolve agents to utilize tools and derive observations. Based on these observations, the plan is continuously updated during execution. (2) We integrate the imitation-and-evolve paradigm into research lifecycle and propose the first self-improving scientific research generation system. In the research stage, the imitation agent emulates related work to plan the manuscript outline, while the evolve agent iteratively drafts and refines this outline. In the revision, the imitation agent simulates human review to generate a revision plan, and the evolve agent iteratively revises the manuscript and decides whether to adopt each suggestion. (3) We propose a new human–computer interaction paradigm that gives users control over the planning process in scientific research generation, enabling them to steer research outputs according to their preferences. Experiments demonstrate that our approach achieves higher reviewer scores on a public benchmark dataset \cite{weng2025cycleresearcher} and a self-constructed dataset.
 
 \section{Related Work}
 
-\subsection{LLMs for Research}
+\subsection{Large Language Models for Research}
 
-In recent years, several studies have explored using language models for creative
-tasks in research, such as multi-agent collaborative writing \cite{baek2025researchagent} and multi-module retrieval \cite{yang2024large} to improve research idea generation. These works aim to boost the novelty and diversity of AI in creative tasks. Si et al. \cite{si2024can} conducted a comprehensive human evaluation of the task of idea generation by language models. Wang et al. \cite{wang2024autosurvey} proposed using LLMs to automatically write survey papers. Additionally, LLMs have been used to automate the research process: Huang et al. \cite{huang2024mlagentbench} introduced a benchmark for evaluating LLMs in coding solutions for machine learning problems; Wang et al. \cite{wang2023scimon} proposed a method leveraging LLMs for scientific
-literature retrieval. The AI Scientist project \cite{lu2024ai} introduced a fully automated, promptdriven research pipeline. The following work, AI Scientist-v2 project \cite{yamada2025ai} further introduced a workshop-level automated scientific discovery via agentic tree search. More recently, Weng et al. \cite{weng2025cycleresearcher} developed an iterative self-rewarding framework that enables the LLM to refine its ideas continuously, enhancing both diversity and practicality in research proposal generation. Guo et al. \cite{guo2025ideabench} proposed a benchmark for evaluating LLMs in research idea generation. Pu et al. \cite{pu2025ideasynth} proposed a method for iterative research idea development through evolving and composing idea facets with literature-grounded feedback. Garikaparthi et al. \cite{garikaparthi2025iris} proposed a method for interactive research ideation system for accelerating scientific discovery.
+In recent years, several studies have explored the use of language models for creative tasks in research, such as multi-agent collaborative writing~\cite{baek2025researchagent} and multi-module retrieval~\cite{yang2024large} to improve research idea generation. These works aim to enhance the novelty and diversity of artificial intelligence in creative research tasks. Si et al.~\cite{si2024can} conducted a comprehensive human evaluation of idea generation by language models. Wang et al.~\cite{wang2024autosurvey} proposed a method that uses large language models to automatically write survey papers. Additionally, large language models have been applied to automate the research process. For example, Huang et al.~\cite{huang2024mlagentbench} introduced a benchmark for evaluating large language models in coding solutions for machine learning problems. Wang et al.~\cite{wang2023scimon} proposed an approach that leverages large language models for scientific literature retrieval. The AI Scientist project~\cite{lu2024ai} introduced a fully automated, prompt-driven research pipeline. Subsequently, the AI Scientist-v2 project~\cite{yamada2025ai} introduced a workshop-level automated scientific discovery method based on agentic tree search. More recently, Weng et al.~\cite{weng2025cycleresearcher} developed an iterative self-rewarding framework that enables large language models to continuously refine their ideas, thereby enhancing both the diversity and practicality of research proposal generation. Guo et al.~\cite{guo2025ideabench} proposed a benchmark for evaluating large language models in research idea generation. Pu et al.~\cite{pu2025ideasynth} proposed a method for iterative research idea development by evolving and composing idea facets with literature-grounded feedback. Garikaparthi et al.~\cite{garikaparthi2025iris} proposed an interactive research ideation system to accelerate scientific discovery.
 
-Existing work have made progress in research paper generation. However, they rely on static planning, challenges of.
+Existing work has made progress in research paper generation. However, most approaches rely on predefined or one-shot planning, which risks error accumulation and misalignment between the plan and the actual evidence.
 
-\subsection{Planning of LLM Agents}
-% LLM planining
-LLMs have achievedremarkable success across various domains, showcasing sig-nificant intelligence in reasoning, tool usage, planning, andinstruction-following. The surprising intelligence of LLMssheds light on employing LLMs as the cognitive core ofagents, thereby offering the potential to improve planning ability \cite{huang2024understanding}. For example, Plan-and-Solve \cite{wang2023plan} propose a two-step prompt instruction: “Let’s first de-vise a plan” and “Let’s carry out the plan”. This zero-shot approach has achieved improvements in mathematical rea-soning, common-sense reasoning, and symbolic reasoning. ProgPrompt \cite{singh2023progprompt} translates natural languagedescriptions of tasks into coding problems. It symbolizes theagent’s action space and objects in the environment throughcode, with each action formalized as a function and each ob-ject represented as a variable. Plan-Act \cite{erdogan2025planact} for HTML manipulation .  LLMCompiler \cite{kim2024llm} break down QA tasks into parallel execution graphs.
+\subsection{Planning of Large Language Model Agents}
 
-Despite promising contributions in each direction,it is seen that LLMs still fall short in more complexscenarios, i.e., long-horizon planning \cite{chen2024can}.  There are several hierarchical planning frameworks. AgentOccam \cite{yangagentoccam} incorporates planning into the action space with tree-like planning, WebPilot \cite{zhang2025webpilot} uses six
-different agents, AdaPlanner \cite{sun2023adaplanner} employs InPlan and Out-of-Plan Refiners for replanning, and ADaPT \cite{prasad2024adapt} uses recursive decomposition. PLAN-AND-ACT \cite{erdogan2025plan} provides a simpler two-agent framework with a systematic approach to generating high-quality training data for open-source LLMs.
+Large language models have achieved remarkable success across various domains, demonstrating significant abilities in reasoning, tool usage, planning, and instruction following. The intelligence of large language models highlights their potential as the cognitive core of agents, which offers opportunities to improve planning ability~\cite{huang2024understanding}. For example, Plan-and-Solve~\cite{wang2023plan} proposes a two-step prompt instruction, where the model first devises a plan and then carries out the plan. This zero-shot approach has achieved improvements in mathematical reasoning, common-sense reasoning, and symbolic reasoning. ProgPrompt~\cite{singh2023progprompt} translates natural language descriptions of tasks into coding problems by symbolizing the agent’s action space and objects in the environment through code, with each action formalized as a function and each object represented as a variable. Plan-Act~\cite{erdogan2025planact} targets HTML manipulation, and LLMCompiler~\cite{kim2024llm} breaks down question-answering tasks into parallel execution graphs.
 
-However, lack of study on long-horizon planning for LLMs for research.
+Despite these promising contributions, large language models still fall short in more complex scenarios such as long-horizon planning~\cite{chen2024can}. Several hierarchical planning frameworks have been proposed. AgentOccam~\cite{yangagentoccam} incorporates planning into the action space using tree-like planning. WebPilot~\cite{zhang2025webpilot} uses six different agents. AdaPlanner~\cite{sun2023adaplanner} employs InPlan and Out-of-Plan Refiners for replanning, and ADaPT~\cite{prasad2024adapt} uses recursive decomposition. PLAN-AND-ACT~\cite{erdogan2025plan} provides a two-agent framework with a systematic approach to generating high-quality training data for open-source large language models.
+
+However, although research on planning with large language models has made significant progress, there is still a lack of studies on long-horizon planning, especially for research paper generation.
 
 \section{Methodology}
 
@@ -379,7 +379,7 @@ We further evaluate our framework on the SurveyEval benchmark \cite{wang2025llm}
 
 \begin{table}[h]
     \centering
-    \begin{adjustbox}{width=\columnwidth}
+    % \begin{adjustbox}{width=\columnwidth}
     % \begin{adjustbox}{}
         \begin{tabular}{lllllll}
             \toprule
@@ -393,7 +393,7 @@ We further evaluate our framework on the SurveyEval benchmark \cite{wang2025llm}
             \cellcolor{gray!15}Proposed & \cellcolor{gray!15}\textbf{98.17} & \cellcolor{gray!15}\textbf{89.28} & \cellcolor{gray!15}\textbf{4.97} & \cellcolor{gray!15}\textbf{4.95} & \cellcolor{gray!15}\textbf{5.00} & \cellcolor{gray!15}\textbf{4.97} \\
             \bottomrule
         \end{tabular}
-    \end{adjustbox}
+    % \end{adjustbox}
     \caption{Ablation study of the proposed modules on the benchmark dataset.}
     \label{tab:ablation_study}
 \end{table}
@@ -425,7 +425,7 @@ In Fig. \ref{fig:surveyeval}, all methods achieve high coverage and relevance, i
 
 \begin{table}[h]
     \centering
-    \begin{adjustbox}{width=\columnwidth}
+    % \begin{adjustbox}{width=\columnwidth}
         \begin{tabular}{clllllll}
             \toprule
             \multirow{2.5}{*}{Method} & \multirow{2.5}{*}{Iteration} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{4}{c}{Content Quality} \\
@@ -454,7 +454,7 @@ In Fig. \ref{fig:surveyeval}, all methods achieve high coverage and relevance, i
             & 5 & 86.47 & 80.27 & 4.84 & 4.89 & 5.00 & 4.91 \\
             \bottomrule
         \end{tabular}
-    \end{adjustbox}
+    % \end{adjustbox}
     \caption{Sensitivity experiments across different iterations for the experience, exploration, and exploitation taskforces on the new large-scale benchmark.}
     \label{tab:iteration_comparison}
 \end{table}
@@ -482,7 +482,7 @@ The results are presented in Table \ref{tab:iteration_comparison}. We find that 
 
 \begin{table}[]
     \centering
-    \begin{adjustbox}{width=\columnwidth}
+    % \begin{adjustbox}{width=\columnwidth}
     \begin{tabular}{clllll}
     \toprule
     \multirow{2.5}{*}{Cluster} & \multicolumn{2}{c}{Citation Quality} & \multicolumn{3}{c}{Content Quality} \\
@@ -496,7 +496,7 @@ The results are presented in Table \ref{tab:iteration_comparison}. We find that 
     5 & 81.37 & 69.77 & 4.66 & 4.74 & 4.73 \\
     \bottomrule
     \end{tabular}
-    \end{adjustbox}
+    % \end{adjustbox}
     \caption{Real-world case study across different topics on 400 generated results. Higher scores indicate better performance.}
     \label{tab:cluster_comparison}
 \end{table}
@@ -507,7 +507,9 @@ We evaluated our framework in a real-world setting by deploying an online automa
 
 \section{Conclusion}
 
-We have proposed a new method to solve the challenges in AI research paper generation.
+In this work, we address the persistent challenge of error accumulation in long-horizon planning for automated scientific research generation. We propose the Imitate-and-Evolve framework, which integrates imitation and evolve agents to continuously realign research plans with new observations, and introduce a novel human–computer interaction paradigm that empowers users to intervene at any stage. Experimental results on both public and self-constructed benchmarks demonstrate that our approach achieves superior reviewer scores compared to state-of-the-art methods.
+
+For future work, we plan to conduct more comprehensive subjective experiments by involving PhD students in human-in-the-loop control and professors in review and evaluation. This will enable us to further assess and enhance the proposed framework in real-world research scenarios.
 
 %%
 %% The next two lines define the bibliography style to be used, and
