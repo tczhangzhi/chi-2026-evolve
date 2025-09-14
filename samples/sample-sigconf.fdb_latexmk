@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex sample-sigconf"] 1756972607.55596 "sample-sigconf.aux" "sample-sigconf.bbl" "sample-sigconf" 1756972620.20698 0
+["bibtex sample-sigconf"] 1757407190.0071 "sample-sigconf.aux" "sample-sigconf.bbl" "sample-sigconf" 1757410661.7783 0
   "./sample-base.bib" 1756972590.06588 12783 e0b6afc2a0d5525321b95c6e19512204 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/acmart/ACM-Reference-Format.bst" 1735764768 90749 48abc1cbed6fafc6fc31528e3aa606ca ""
-  "sample-sigconf.aux" 1756972618.40629 5103 a6ab00d4fcbdbedc70737988e8b0b8b1 "pdflatex"
+  "sample-sigconf.aux" 1757410660.59307 5434 3885ad996620d50590c28425ce785a1b "pdflatex"
   (generated)
   "sample-sigconf.bbl"
   "sample-sigconf.blg"
   (rewritten before read)
-["pdflatex"] 1756972608.56614 "/Users/geovanni/Work/chi-2026-evolve/samples/sample-sigconf.tex" "sample-sigconf.pdf" "sample-sigconf" 1756972620.20755 0
-  "/Users/geovanni/Work/chi-2026-evolve/samples/sample-sigconf.tex" 1756972458.9628 30896 fc5f1db43a5f4f6ed146fd960705ab44 ""
+["pdflatex"] 1757410657.32188 "/Users/geovanni/Work/chi-2026-evolve/samples/sample-sigconf.tex" "sample-sigconf.pdf" "sample-sigconf" 1757410661.77864 0
+  "/Users/geovanni/Work/chi-2026-evolve/samples/sample-sigconf.tex" 1757410656.29637 31109 b5889f80bef33dd35dc6004ad42bde41 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
@@ -284,10 +284,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1754727906 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1754727826 3345736 b485dbe630d0a4896a108c450b9c8cb2 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "sample-sigconf.aux" 1756972618.40629 5103 a6ab00d4fcbdbedc70737988e8b0b8b1 "pdflatex"
-  "sample-sigconf.bbl" 1756972608.52955 19976 a7c826894fb9f1af3585399d4ec59aec "bibtex sample-sigconf"
-  "sample-sigconf.out" 1756972618.40944 1685 9b82caf3c154d0b0fc431403ca42798b "pdflatex"
-  "sample-sigconf.tex" 1756972458.9628 30896 fc5f1db43a5f4f6ed146fd960705ab44 ""
+  "framework.pdf" 1757406881.97635 1466786 ab2ec3760ea12ebd72dd35b96f5c000f ""
+  "sample-sigconf.aux" 1757410660.59307 5434 3885ad996620d50590c28425ce785a1b "pdflatex"
+  "sample-sigconf.bbl" 1757407190.28392 19976 a7c826894fb9f1af3585399d4ec59aec "bibtex sample-sigconf"
+  "sample-sigconf.out" 1757410660.59701 1685 69d53553b368ba6febdc89089b587abe "pdflatex"
+  "sample-sigconf.tex" 1757410656.29637 31109 b5889f80bef33dd35dc6004ad42bde41 ""
   (generated)
   "sample-sigconf.aux"
   "sample-sigconf.log"

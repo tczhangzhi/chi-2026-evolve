@@ -122,7 +122,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Imitate-and-Evolve: Human and AI Research Assistant Collaboration for Long-Horizon Planning in Scientific Research}
+\title{Easy to Know but Hard to Do? Evolve-and-Adapt for Scientific Research}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -206,7 +206,7 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-Scientific research is a complex process that drives innovation and knowledge advancement. Automating research tasks can reduce researchers' workload and accelerate discovery, but long-horizon planning and execution introduce challenges such as error accumulation and misalignment with human intent. We present Imitate-and-Evolve, a framework that organizes AI research assistants to collaborate with human researchers throughout the research process. In this framework, imitation agents retrieve and emulate reference plans from external sources based on the human researcher's initial idea. Evolution agents use various tools to gather new observations and iteratively refine the plan during execution, guided by human feedback and approval. By integrating imitation and evolution, the AI assistant team automates research tasks while staying aligned with human intent, leading to faithful and desirable outcomes. Experiments show that our framework improves the quality of generated research papers, as measured by review ratings.
+Scientific research is a complex process that drives innovation and knowledge advancement. Automating research tasks can reduce researchers' workload and accelerate discovery, but long-horizon planning and execution introduce challenges such as error accumulation and misalignment with human intent. We present Evolve-and-Adapt, a framework that organizes AI research assistants to collaborate with human researchers throughout the research process. In this framework, imitation agents retrieve and emulate reference plans from external sources based on the human researcher's initial idea. Evolution agents use various tools to gather new observations and iteratively refine the plan during execution, guided by human feedback and approval. By integrating imitation and evolution, the AI assistant team automates research tasks while staying aligned with human intent, leading to faithful and desirable outcomes. Experiments show that our framework improves the quality of generated research papers, as measured by review ratings.
 \end{abstract}
 
 %%
@@ -286,6 +286,14 @@ However, although research on planning with large language models has made signi
 
 \section{Methodology}
 
+\begin{figure*}[h]
+  \begin{center}
+      \includegraphics[width=\linewidth]{./framework.pdf}
+  \end{center}
+  \caption{Overview of the Imitation-and-Evolve framework.}
+  \label{fig:framework}
+\end{figure*}
+
 In this section, we present our Imitation-and-Evolve approach in detail. The overall framework, illustrated in Fig.~\ref{fig:framework}, consists of two stages: drafting and revision. In the drafting stage, the imitation agent emulates relevant work to plan the manuscript outline, while the evolve agent iteratively drafts and refines the outline. In the revision stage, the imitation agent simulates human review to generate revision plan, and the evolve agent iteratively revises the manuscript and decides whether to adopt each point.
 
 \subsection{Imitation-and-Evolve for Drafting}
@@ -351,7 +359,7 @@ This iterative process continues for all review points $\{G_1, G_2, \ldots, G_L\
 
 \section{Conclusion}
 
-In this work, we address the persistent challenge of error accumulation in long-horizon planning for automated scientific research generation. We propose the Imitate-and-Evolve framework, which integrates imitation and evolve agents to continuously realign research plans with new observations, and introduce a novel human–computer interaction paradigm that empowers users to intervene at any stage. Experimental results on both public and self-constructed benchmarks demonstrate that our approach achieves superior reviewer scores compared to state-of-the-art methods.
+In this work, we address the persistent challenge of error accumulation in long-horizon planning for automated scientific research generation. We propose the Evolve-and-Adapt framework, which integrates imitation and evolve agents to continuously realign research plans with new observations, and introduce a novel human–computer interaction paradigm that empowers users to intervene at any stage. Experimental results on both public and self-constructed benchmarks demonstrate that our approach achieves superior reviewer scores compared to state-of-the-art methods.
 
 For future work, we plan to conduct more comprehensive subjective experiments by involving PhD students in human-in-the-loop control and professors in review and evaluation. This will enable us to further assess and enhance the proposed framework in real-world research scenarios.
 
